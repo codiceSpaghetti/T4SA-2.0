@@ -11,6 +11,27 @@ It was built crawling ∼3.7 pictures from the social media during the continuou
 
 The latter can help future research to train robust visual models. Its size would be particularly advantageous as the number of parameters of current SOTA is **exponentially growing along with their need of data** to avoid overfitting problems.
 
+
+## Build Instructions
+### Install git
+    $ apt-get update
+    $ apt-get install git
+### Install T4SA codebase
+    $ git config --global http.postBuffer 1048576000
+    $ git clone --recursive https://github.com/codiceSpaghetti/T4SA-2.0.git
+### Install dependencies 
+    $ chmod +x install_dependencies.sh
+    $ ./install_dependencies.sh
+
+## How to use script for benchmark evaluation
+### Test a model with a benchmark, get the accuracy and save the prediction
+    $ python3 python\ script/test_benchmark.py -m <model_name> -b <benchmark_name>
+### Execute a five fold cross validation on a benchmark, get the mean accuracy, the standard deviation and save the predictions (by default use the boosted_model)
+    $ python3 python\ script/5_fold_cross.py -b <benchmark_name>
+### Fine tune FI on the five split, get the mean accuracy, the standard deviation and save the predictions(by default use the boosted_model)
+    $ python3 python\ script/fine_tune_FI.py
+    
+## Directory structure
 ```bash
 .
 ├── colab notebook
@@ -58,26 +79,6 @@ The latter can help future research to train robust visual models. Its size woul
 ├── models
 ├── predictions
 └── python script
-```
-
-## Build Instructions
-### Install git
-    $ apt-get update
-    $ apt-get install git
-### Install T4SA codebase
-    $ git config --global http.postBuffer 1048576000
-    $ git clone --recursive https://github.com/codiceSpaghetti/T4SA-2.0.git
-### Install dependencies 
-    $ chmod +x install_dependencies.sh
-    $ ./install_dependencies.sh
-##  Download models
-    $ chmod +x download_models.sh
-    $ ./download_models.sh
-### Test a model with a benchmark and get the accuracy
-    $ python3 python\ script/test_benchmark.py -m <model_name> -b <benchmark_name>
-### Execute a five fold cross validation on a benchmark and get the mean accuracy and standard deviation (by default use the boosted_model)
-    $ python3 python\ script/5_fold_cross.py -b <benchmark_name>
-### Fine tune FI on the five split and get the mean accuracy and standard deviation (by default use the boosted_model)
-    $ python3 python\ script/fine_tune_FI.py
+``` 
 
 
