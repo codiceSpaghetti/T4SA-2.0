@@ -14,3 +14,4 @@ pip install --upgrade tensorflow-hub
 pip -q install transformers
 pip install gdown
 pip install --upgrade gdown
+RUN apt-get install ffmpeg libsm6 libxext6  -y
