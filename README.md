@@ -11,7 +11,7 @@ It was built crawling ∼3.7 pictures from the social media during the continuou
 
 The latter can help future research to train robust visual models. Its size would be particularly advantageous as the number of parameters of current SOTA is **exponentially growing along with their need of data** to avoid overfitting problems.
 
-## Directory structure
+'''bash
 .
 |-- colab notebook
 |-- dataset
@@ -58,6 +58,7 @@ The latter can help future research to train robust visual models. Its size woul
 |-- models
 |-- predictions
 `-- python script
+'''
 ## Build Instructions
 ### Install git
     $ apt-get update
