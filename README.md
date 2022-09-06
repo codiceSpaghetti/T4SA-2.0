@@ -14,13 +14,16 @@ The latter can help future research to train robust visual models. Its size woul
 ## Directory structure
 
 ## Build Instructions
-### Install development tools 
-    $ sudo apt-get install build-essential
-    $ sudo apt-get install git
+### Install dependencies 
+    $ chmod +x install_dependencies.sh
+    $ ./install_dependencies.sh
 ### Install T4SA codebase
     $ git clone --recursive https://github.com/codiceSpaghetti/T4SA-2.0.git
-    $ cd python\ script
+##  Download models
+    $ chmod +x download_models.sh
+    $ ./download_models.sh
 ### Test a model with a benchmark and get the accuracy
+    $ cd python\ script
     $ python3 test_benchmark -m <model_name> -b <benchmark_name>
 ### Execute a five fold cross validation on a benchmark and get the mean accuracy and standard deviation (by default use the boosted_model)
     $ python3 5_fold_cross.py -b <benchmark_name>
