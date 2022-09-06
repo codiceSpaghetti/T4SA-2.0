@@ -27,8 +27,9 @@ The latter can help future research to train robust visual models. Its size woul
 ## How to use script for benchmark evaluation
 ### Test a model with a benchmark, get the accuracy and save the prediction
     $ python3 python\ script/test_benchmark.py -m <model_name> -b <benchmark_name>
-    $ options for model_name: [boosted_model, ViT_L16, ViT_L32, ViT_B16, ViT_B32, merged_T4SA, bal_flat_T4SA2.0, bal_T4SA2.0, unb_T4SA2.0, B-T4SA_1.0_upd_filt, B-T4SA_1.0_upd, B-T4SA_1.0]
-    $ options for benchmark_name: [5agree, 4agree, 3agree, FI_complete, emotion_ROI_complete, twitter_testing_2] 
+    
+    $ options for <model_name>: [boosted_model, ViT_L16, ViT_L32, ViT_B16, ViT_B32, merged_T4SA, bal_flat_T4SA2.0, bal_T4SA2.0, unb_T4SA2.0, B-T4SA_1.0_upd_filt, B-T4SA_1.0_upd, B-T4SA_1.0]
+    $ options for <benchmark_name>: [5agree, 4agree, 3agree, FI_complete, emotion_ROI_complete, twitter_testing_2] 
 ### Execute a five fold cross validation on a benchmark, get the mean accuracy, the standard deviation and save the predictions (by default use the boosted_model)
     $ python3 python\ script/5_fold_cross.py -b <benchmark_name>
 ### Fine tune FI on the five split, get the mean accuracy, the standard deviation and save the predictions (by default use the boosted_model)
