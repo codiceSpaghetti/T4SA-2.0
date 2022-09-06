@@ -19,6 +19,7 @@ The latter can help future research to train robust visual models. Its size woul
 ### Install T4SA codebase
     $ git config --global http.postBuffer 1048576000
     $ git clone --recursive https://github.com/codiceSpaghetti/T4SA-2.0.git
+    $ cd T4SA-2.0/
 ### Install dependencies 
     $ chmod +x install_dependencies.sh
     $ ./install_dependencies.sh
