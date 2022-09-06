@@ -26,9 +26,11 @@ The latter can help future research to train robust visual models. Its size woul
 ## How to use script for benchmark evaluation
 ### Test a model with a benchmark, get the accuracy and save the prediction
     $ python3 python\ script/test_benchmark.py -m <model_name> -b <benchmark_name>
-### Execute a five fold cross validation on a benchmark, get the mean accuracy, the standard deviation and save the predictions (by default use the boosted_model)
+### Execute a five fold cross validation on a benchmark, get the mean accuracy, the standard deviation and save the predictions
+(by default use the boosted_model)
     $ python3 python\ script/5_fold_cross.py -b <benchmark_name>
-### Fine tune FI on the five split, get the mean accuracy, the standard deviation and save the predictions(by default use the boosted_model)
+### Fine tune FI on the five split, get the mean accuracy, the standard deviation and save the predictions 
+(by default use the boosted_model)
     $ python3 python\ script/fine_tune_FI.py
     
 ## Directory structure
