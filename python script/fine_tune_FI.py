@@ -38,7 +38,7 @@ class WeightsSaver(Callback):
 
   def on_batch_end(self, batch, logs={}):
     if self.batch % self.N == 0:
-      curr_accuracy = compute_accuracy(self.model, self.valid_dataset, self.val_annot)
+      curr_accuracy = compute_accuracy(self.model, self.valid_dataset, self.val_annot, self.split)
       if curr_accuracy > self.best_val_accuracy:
         self.best_val_accuracy = curr_accuracy
         name = FI_DIR + 'models/model_' + str(self.split) + '.h5'
@@ -47,7 +47,7 @@ class WeightsSaver(Callback):
     self.batch += 1
 
   def on_epoch_end(self, epoch, logs={}):
-    curr_accuracy = compute_accuracy(self.model, self.valid_dataset, self.val_annot)
+    curr_accuracy = compute_accuracy(self.model, self.valid_dataset, self.val_annot, self.split)
     if curr_accuracy > self.best_val_accuracy:
       self.best_val_accuracy = curr_accuracy
       name = FI_DIR + 'models/model_' + str(self.split) + '.h5'
@@ -61,7 +61,7 @@ def compute_accuracy(model, dataset, test_annot, split):
   predictions = model.predict(dataset)
 
   pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
-  pred_df.to_csv(PREDICTION_DIR + "fine_tune_FI_" + split + ".csv", index=None)
+  pred_df.to_csv(PREDICTION_DIR + "fine_tune_FI_" + str(split) + ".csv", index=None)
 
   bin_predictions = np.delete(predictions, 1, 1)  # remove the Neutral prediction, since the
                                                   # benchmark is a binary classification problem
