@@ -48,7 +48,7 @@ def predict_model(model_name, dataset_name, vit_model):
   predictions = complete_model.predict(benchmark)  # predict the labels
 
   pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
-  pred_df.to_csv(PREDICTION_DIR + model_name + "_" + dataset_name + ".csv", index=None)
+  pred_df.to_csv(PREDICTION_DIR + model_name + "_" + dataset_name.split(".")[0] + ".csv", index=None)
 
   bin_predictions = np.delete(predictions, 1, 1)  # remove the Neutral prediction, since the benchmark is a binary classification problem
   pred_labels = np.argmax(bin_predictions, axis=1).tolist()
