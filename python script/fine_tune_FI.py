@@ -17,11 +17,10 @@ from keras.callbacks import Callback
 from sklearn.metrics import accuracy_score
 from sklearn.utils.class_weight import compute_class_weight
 
-from PIL import ImageFile
-ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 BENCHMARK_DIR = "dataset/benchmark/"
 FI_DIR = BENCHMARK_DIR + "FI/"
+PREDICTION_DIR = "predictions/"
 
 IMAGE_SIZE = 384
 
@@ -58,11 +57,14 @@ class WeightsSaver(Callback):
     self.epoch += 1
 
 
-def compute_accuracy(model, dataset, test_annot):
+def compute_accuracy(model, dataset, test_annot, split):
   predictions = model.predict(dataset)
+
+  pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
+  pred_df.to_csv(PREDICTION_DIR + "fine_tune_FI_" + split + ".csv", index=None)
+
   bin_predictions = np.delete(predictions, 1, 1)  # remove the Neutral prediction, since the
                                                   # benchmark is a binary classification problem
-
   pred_labels = np.argmax(bin_predictions, axis=1).tolist()
 
   gold_labels = test_annot['class'].apply(int).tolist()
@@ -122,7 +124,7 @@ def main():
     test_dataset = build_data_pipeline(test_annot).batch(BATCH_SIZE).prefetch(tf.data.AUTOTUNE)
 
     model_name = "boosted_model"
-    model_weights_path = "download_model/" + model_name + ".h5"
+    model_weights_path = "models/" + model_name + ".h5"
 
     if not os.path.exists(model_weights_path):
       url = map_model_to_url[model_name]
@@ -153,7 +155,7 @@ def main():
 
     model.load_weights(FI_DIR + 'models/model_' + str(split) + '.h5')
 
-    curr_accuracy = compute_accuracy(model, test_dataset, test_annot)
+    curr_accuracy = compute_accuracy(model, test_dataset, test_annot, split)
     test_accuracies.append(curr_accuracy)
 
   print("Accuracy obtained:", test_accuracies)

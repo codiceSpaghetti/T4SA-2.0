@@ -16,6 +16,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.utils.class_weight import compute_class_weight
 from utils import image_size_mapper, map_dataset_to_folder, map_model_to_url, map_benchmark_to_folder
 
+PREDICTION_DIR = "predictions/"
 
 def get_model_architecture(model_name):
   '''Returns a tf.data.Dataset that maps image and labels taken from the dataframe in input.'''
@@ -37,17 +38,7 @@ def get_model_architecture(model_name):
   ],
     name='vision_transformer')
 
-  model_weights_path = "download_model/" + model_name + ".h5"
-
-  if not os.path.exists(model_weights_path):
-    url = map_model_to_url[model_name]
-    print("Downloading file...")
-    gdown.download(url, model_weights_path)
-    print("Done!")
-  else:
-    print("Model", model_name, "already downloaded!")
-
-  model.load_weights(model_weights_path)  # load the saved weights
+  model.load_weights(model_name)  # load the saved weights
 
   mask = tf.convert_to_tensor([1.0, 0.0000001, 1.0], dtype=tf.float32)
   mask = tf.expand_dims(tf.cast(mask, dtype=tf.float32), axis=0)
@@ -67,6 +58,16 @@ def predict_model_on_small_dataset(model_name, dataset_dir, dataset_name, K, bat
   dataset_to_test = pd.read_csv(dataset_dir + dataset_name)  # get the dataframe with the gold labels
   labels = dataset_to_test[['class']]
 
+  model_weights_path = "models/" + model_name + ".h5"
+
+  if not os.path.exists(model_weights_path):
+    url = map_model_to_url[model_name]
+    print("Downloading file...")
+    gdown.download(url, model_weights_path)
+    print("Done!")
+  else:
+    print("Model", model_name, "already downloaded!")
+
   skf = StratifiedKFold(n_splits=K, random_state=42, shuffle=True)
 
   for i, (train_index, test_index) in enumerate(skf.split(np.zeros(dataset_to_test.shape[0]), labels)):
@@ -79,7 +80,7 @@ def predict_model_on_small_dataset(model_name, dataset_dir, dataset_name, K, bat
     train_dataset = utils.get_dataset(train_annot, dataset_name, batch_size=batch_size)
     test_dataset = utils.get_dataset(test_annot, dataset_name, batch_size=batch_size)
 
-    new_fold_model = get_model_architecture(model_name)  # Get the model structure
+    new_fold_model = get_model_architecture(model_weights_path)  # Get the model structure
 
     learning_rate = 1e-4
     optimizer = tfa.optimizers.RectifiedAdam(learning_rate=learning_rate)
@@ -98,6 +99,9 @@ def predict_model_on_small_dataset(model_name, dataset_dir, dataset_name, K, bat
     new_fold_model.load_weights(dataset_dir + "models/" + dataset_name.split(".")[0] + "/fold_" + str(i) + ".h5")
 
     predictions = new_fold_model.predict(test_dataset)  # predict the labels
+
+    pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
+    pred_df.to_csv(PREDICTION_DIR + "fine_tune_" + dataset_name.split(".")[0] + "_" + i + ".csv", index=None)
 
     pred_labels = np.argmax(predictions, axis=1).tolist()
     gold_labels = test_annot['class'].apply(int).tolist()

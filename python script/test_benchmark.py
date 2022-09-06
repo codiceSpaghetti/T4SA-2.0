@@ -16,6 +16,7 @@ from sklearn.model_selection import StratifiedKFold
 from utils import map_model_to_url, map_benchmark_to_folder
 
 BENCHMARK_DIR = "dataset/benchmark/"
+PREDICTION_DIR = "predictions/"
 FI_DIR = BENCHMARK_DIR + "FI/"
 
 def predict_model(model_name, dataset_name, vit_model):
@@ -26,7 +27,7 @@ def predict_model(model_name, dataset_name, vit_model):
   test_annot = pd.read_csv(map_benchmark_to_folder[dataset_name] + dataset_name)  # get the dataframe with the gold labels
   benchmark = utils.get_dataset(test_annot, dataset_name, vit_model)
 
-  model_weights_path = "downloaded_model/" + model_name + ".h5"
+  model_weights_path = "models/" + model_name + ".h5"
 
   if not os.path.exists(model_weights_path):
     url = map_model_to_url[model_name]
@@ -45,6 +46,9 @@ def predict_model(model_name, dataset_name, vit_model):
     ], name="complete_model")
 
   predictions = complete_model.predict(benchmark)  # predict the labels
+
+  pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
+  pred_df.to_csv(PREDICTION_DIR + model_name + "_" + dataset_name + ".csv", index=None)
 
   bin_predictions = np.delete(predictions, 1, 1)  # remove the Neutral prediction, since the benchmark is a binary classification problem
   pred_labels = np.argmax(bin_predictions, axis=1).tolist()
