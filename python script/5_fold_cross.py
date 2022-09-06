@@ -101,7 +101,7 @@ def predict_model_on_small_dataset(model_name, dataset_dir, dataset_name, K, bat
     predictions = new_fold_model.predict(test_dataset)  # predict the labels
 
     pred_df = pd.DataFrame(predictions, columns=["NEG", "NEU", "POS"])
-    pred_df.to_csv(PREDICTION_DIR + "fine_tune_" + dataset_name.split(".")[0] + "_" + i + ".csv", index=None)
+    pred_df.to_csv(PREDICTION_DIR + "fine_tune_" + dataset_name.split(".")[0] + "_" + str(i) + ".csv", index=None)
 
     pred_labels = np.argmax(predictions, axis=1).tolist()
     gold_labels = test_annot['class'].apply(int).tolist()
@@ -109,7 +109,7 @@ def predict_model_on_small_dataset(model_name, dataset_dir, dataset_name, K, bat
 
     curr_accuracy = accuracy_score(pred_labels, gold_labels)  # compute the accuracy
 
-    print("Accuracy fold", i, ":", curr_accuracy)
+    print("Accuracy fold", str(i), ":", curr_accuracy)
     test_accuracies.append(curr_accuracy)
 
   print("Accuracy obtained for", dataset_name, ":", test_accuracies)
