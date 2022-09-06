@@ -12,55 +12,52 @@ It was built crawling ∼3.7 pictures from the social media during the continuou
 The latter can help future research to train robust visual models. Its size would be particularly advantageous as the number of parameters of current SOTA is **exponentially growing along with their need of data** to avoid overfitting problems.
 
 ## Directory structure
-
-'''bash
 .
-├── colab notebook
-├── dataset
-│   ├── benchmark
-│   │   ├── EmotionROI
-│   │   │   └── images
-│   │   │       ├── anger
-│   │   │       ├── disgust
-│   │   │       ├── fear
-│   │   │       ├── joy
-│   │   │       ├── sadness
-│   │   │       └── surprise
-│   │   ├── FI
-│   │   │   ├── images
-│   │   │   │   ├── amusement
-│   │   │   │   ├── anger
-│   │   │   │   ├── awe
-│   │   │   │   ├── contentment
-│   │   │   │   ├── disgust
-│   │   │   │   ├── excitement
-│   │   │   │   ├── fear
-│   │   │   │   └── sadness
-│   │   │   ├── split_1
-│   │   │   ├── split_2
-│   │   │   ├── split_3
-│   │   │   ├── split_4
-│   │   │   └── split_5
-│   │   ├── Twitter Testing Dataset I
-│   │   │   └── images
-│   │   └── Twitter Testing Dataset II
-│   │       └── images
-│   ├── t4sa 1.0
-│   │   ├── dataset with new labels
-│   │   │   ├── b-t4sa1.0 updated
-│   │   │   └── b-t4sa1.0 updated and filtered
-│   │   └── original dataset
-│   │       └── b-t4sa 1.0
-│   └── t4sa 2.0
-│       ├── bal_T4SA2.0
-│       ├── bal_flat_T4SA2.0
-│       ├── img
-│       ├── merged_T4SA
-│       └── unb_T4SA2.0
-├── models
-├── predictions
-└── python script
-'''
+|-- colab notebook
+|-- dataset
+|   |-- benchmark
+|   |   |-- EmotionROI
+|   |   |   `-- images
+|   |   |       |-- anger
+|   |   |       |-- disgust
+|   |   |       |-- fear
+|   |   |       |-- joy
+|   |   |       |-- sadness
+|   |   |       `-- surprise
+|   |   |-- FI
+|   |   |   |-- images
+|   |   |   |   |-- amusement
+|   |   |   |   |-- anger
+|   |   |   |   |-- awe
+|   |   |   |   |-- contentment
+|   |   |   |   |-- disgust
+|   |   |   |   |-- excitement
+|   |   |   |   |-- fear
+|   |   |   |   `-- sadness
+|   |   |   |-- split_1
+|   |   |   |-- split_2
+|   |   |   |-- split_3
+|   |   |   |-- split_4
+|   |   |   `-- split_5
+|   |   |-- Twitter Testing Dataset I
+|   |   |   `-- images
+|   |   `-- Twitter Testing Dataset II
+|   |       `-- images
+|   |-- t4sa 1.0
+|   |   |-- dataset with new labels
+|   |   |   |-- b-t4sa1.0 updated
+|   |   |   `-- b-t4sa1.0 updated and filtered
+|   |   `-- original dataset
+|   |       `-- b-t4sa 1.0
+|   `-- t4sa 2.0
+|       |-- bal_T4SA2.0
+|       |-- bal_flat_T4SA2.0
+|       |-- img
+|       |-- merged_T4SA
+|       `-- unb_T4SA2.0
+|-- models
+|-- predictions
+`-- python script
 ## Build Instructions
 ### Install git
     $ apt-get update
