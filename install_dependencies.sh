@@ -12,3 +12,5 @@ pip install -U scikit-learn
 pip install IPython
 pip install --upgrade tensorflow-hub
 pip -q install transformers
+pip install gdown
+pip install --upgrade gdown
