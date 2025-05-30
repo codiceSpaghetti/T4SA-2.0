@@ -1,0 +1,25 @@
+# Core ML/DL dependencies
+tensorflow==2.8
+tensorflow-addons
+tensorflow-hub
+
+# Vision and Image Processing
+opencv-python
+pillow
+vit-keras
+
+# Data Processing and Analysis
+pandas
+scikit-learn
+
+# Vector Search and Similarity
+faiss-cpu
+
+# Transformers and NLP
+transformers
+
+# Jupyter and Interactive Development
+IPython
+
+# Utilities
+gdown 
